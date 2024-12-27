@@ -78,8 +78,4 @@ app.use('/products', productRoutes);
 // Set default app locals
 app.locals.title = "E-Commerce";
 
-// Start the server
-const PORT = process.env.PORT || 4445;
-app.listen(PORT, () => {
-  console.log(`Frontend server is running on http://localhost:${PORT}`);
-});
+module.exports = app;
