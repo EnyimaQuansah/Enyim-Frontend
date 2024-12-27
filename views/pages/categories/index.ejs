@@ -1,0 +1,31 @@
+<%- include("../../partials/header") %>
+<div class="container my-4">
+  <h1>Categories</h1>
+  <a href="/categories/add" class="btn btn-primary my-2">Add Category</a>
+
+  <% if (categories.length === 0) { %>
+    <p>No categories available. Please add a new one!</p>
+  <% } else { %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% categories.forEach((category, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= category.name %></td>
+            <td>
+              <a href="/categories/<%= category._id %>/edit" class="btn btn-warning btn-sm">Edit</a>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+<%- include("../../partials/footer") %>
