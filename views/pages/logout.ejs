@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center"><%= message %></h3>
+          <div class="text-center mt-3">
+            <!-- Use a form for the logout action -->
+            <form id="logoutForm" action="/user/logout" method="POST" style="display: inline;">
+              <button type="submit" class="btn btn-danger" id="confirmLogoutBtn">Logout</button>
+            </form>
+            <a href="/" class="btn btn-secondary ml-2">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>
