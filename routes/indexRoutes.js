@@ -2,12 +2,35 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+
 const API_AUTH_URL = process.env.API_AUTH_URL;
 
 // Landing Page
-router.get('/', (req, res) => {
-  res.render('pages/landing', { user: req.session.user, title: "Welcome to E-Commerce" });
+router.get('/', async (req, res) => {
+  try {
+    
+    const { default: fetch } = await import('node-fetch'); // Dynamic import for node-fetch
+
+    const notificationsServiceURL = 'https://enyim-notifications.onrender.com/health';
+    const response = await fetch(notificationsServiceURL);
+
+    if (response.ok) {
+      console.log('Notifications service activated successfully.');
+    } else {
+      console.error('Failed to activate notifications service:', response.statusText);
+    }
+  } catch (error) {
+    console.error('Error activating notifications service:', error.message);
+  }
+
+  // Render the landing page
+  res.render('pages/landing', { 
+    user: req.session.user, 
+    title: "Welcome to E-Commerce" 
+  });
 });
+
+
 
 // Register Page
 router.get('/register', (req, res) => {

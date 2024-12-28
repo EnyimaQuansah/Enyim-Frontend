@@ -61,48 +61,7 @@ router.get("/add", ensureAuthenticated, async (req, res) => {
 });
 
 // Add a new product
-router.post("/add", upload.single("imageFile"), async (req, res) => {
-  try {
-    const { title, description, category_id, price, quantity, image } =
-      req.body;
-    const { accessToken } = req.session;
 
-    // Create FormData instance to send to microservice
-    const formData = new FormData();
-
-    // Append regular product fields
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("category_id", category_id);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-
-    // Handling the image logic based on file or URL input
-    if (req.file) {
-      // If a file was uploaded, append it to FormData
-      formData.append("imageFile", req.file.buffer, req.file.originalname);
-    } else if (image) {
-      // If a URL is provided, just append the URL string as is
-      formData.append("imageUrl", image);
-    }
-
-    console.log("formData:", formData);
-
-    // Send FormData to backend microservice
-    const response = await axios.post(`${API_PRODUCT_URL}/`, formData, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        ...formData.getHeaders(), // Set proper headers for multipart/form-data
-      },
-    });
-
-    // After successful upload, redirect to products page
-    res.redirect("/products");
-  } catch (error) {
-    console.error("Error adding product:", error.message);
-    res.render("pages/products/add", { error: error.message, categories: [] });
-  }
-});
 
 // Edit product page
 router.get("/:id/edit", ensureAuthenticated, async (req, res) => {
